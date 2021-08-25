@@ -1,0 +1,167 @@
+Exercise
+
+create table Science_class(
+enrollment_no int,
+name varchar,
+science_marks int);
+
+insert into science_class values(1,'Popeye',33),(2,'Olive',54),(3,'Brutus',98);
+
+copy science_class from 'C:\Program Files\PostgreSQL\13\data\Data_copy\student.csv' delimiter ',' csv header;
+
+/* Exercise 3 */
+
+/* Retrieve all data from Sceince Class table */
+select * from science_class;
+
+/* Retrieve name of student who have scored more than 60 marks */
+select name from science_class where science_marks > 60 ;
+
+/* All data of student who have sored more 35 but less than 60 marks */
+select * from science_class where science_marks > 35 and science_marks < 60;
+select * from science_class where science_marks between 30 and 60;
+
+/* All other student who scored less than or Equal to 35 and more than eq to 60 */
+select * from science_class where science_marks < 35 or science_marks > 60;
+select * from science_class where science_marks not between 35 and 60;
+
+/*Exercise 4 */
+
+/* Update Popeye marks to 45 */
+update science_class set science_marks = 45 where name = 'Popeye';
+
+/* Delete row where robb is name */
+delete from science_class where name = 'Robb';
+
+/* Rename column 'name' to 'student_name'*/
+
+alter table science_class rename name to student_name;
+
+
+******** Training Queries -*******
+
+/* Bow to create a Table and insert data in the table*/
+create table Customer_table(
+cust_id int,
+first_name varchar,
+last_name varchar,
+age int,
+email_id varchar);
+
+insert into Customer_table values(2,'chicky','Moss',20,'c.moss@abc.com'),
+(3,'Brandy','Moss',19,'b.moss@abc.com'),
+(4,'Zacky','Band',23,'z.band@abc.com'),
+(5,'Neggi','Bim',22,'n.bim@abc.com');
+
+/* error message when there is more expression than target column*/
+
+insert into Customer_table(cust_id,first_name,age,email_id) values(7,'Zinc','Basty',20,'c.moss@abc.com');
+
+/* To copy records from csv and text file into the table */
+
+copy customer_table from 'C:\Program Files\PostgreSQL\13\data\Data_copy\copy.csv' delimiter ',' csv header;
+
+copy customer_table from 'C:\Program Files\PostgreSQL\13\data\Data_copy\copytext.txt' delimiter ',';
+
+/* How to retrieve data from a DB Table */
+
+select first_name, age from customer_table;
+
+select first_name from customer_table;
+
+select * from customer_table;
+
+/* Using 'Distinct' to remove similar the same rows of data */
+
+select * from customer_table;
+
+select distinct * from customer_table;
+
+insert into Customer_table values(9,'Gee','Etch',25,'ge@xyz.com');
+
+/* adding cinditional statement to retrieved data */
+
+select * from customer_table where age > 20 and not first_name = 'Gee';
+
+select distinct first_name,last_name,age from customer_table where age > 20;
+
+/* Update and Delete data in the Table */
+select * from customer_table;
+
+update customer_table set last_name = 'Jack' where first_name = 'chicky';
+update customer_table set last_name = 'Bee' where first_name = 'Zinc';
+update customer_table set last_name = 'Moss' where cust_id = 2;
+
+delete from customer_table where cust_id = 9 and first_name = 'Gee';
+delete from customer_table where cust_id = 6 and first_name = 'chicky';
+
+update customer_table set last_name = 'Aaron', first_name = 'Jacky', cust_id = 7 where cust_id = 10;
+update customer_table set email_id = 'jk@xyz.com' where cust_id = 9;
+
+/* Alter Table */
+
+alter table customer_table add phone_no int;
+
+alter table customer_table alter column customer_email set int;
+
+insert into customer_table (phone_no) values(555-555-555);
+
+delete from customer_table where phone_no = -555;
+delete from customer_table where cust_id = null;
+
+alter table customer_table drop phone_no;
+
+alter table customer_table alter column cust_id drop not null;
+
+update customer_table set email_id = 'null@xyz.com' where cust_id = null;
+
+alter table customer_table rename column email_id to customer_email;
+
+/* could not complete because cust_id already contains null */
+alter table customer_table add constraint cust_id check(cust_id > 0);
+
+alter table customer_table add primary key (cust_id);
+
+/* Delete table */
+delete from customer_table;
+
+copy customer_table from 'C:\Program Files\PostgreSQL\13\data\Data_copy\copytext.txt' delimiter ',';
+
+alter table customer
+
+select * from customer
+select * from product
+select * from sales
+
+alter table product add constraint product_id foreign key (customer_id) references customer
+
+/* Exercise 5 */
+
+/* Making selection in database using IN, BETWEEN and LIKE*/
+
+select *
+from customer
+where city in ('Seattle', 'Philadelphia')
+
+select *
+from customer
+where city = 'Seattle' or city = 'Philadelphia'
+
+select distinct city
+from customer
+where region in ( 'North','East');
+
+select order_line
+from sales
+where sales between 100 and 500;
+
+select last_name
+from customer_table
+where last_name like '____'
+
+
+
+
+
+
+
