@@ -160,6 +160,13 @@ from customer_table
 where last_name like '____'
 
 
+-- Using Order by to sort records and Limit to restrict the number of records displayed
+
+select *
+from sales
+where discount > 0
+order by discount desc
+limit 10
 
 
 
